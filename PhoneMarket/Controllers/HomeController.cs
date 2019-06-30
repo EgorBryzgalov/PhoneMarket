@@ -3,28 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PhoneMarket.Models;
+
 
 namespace PhoneMarket.Controllers
 {
     public class HomeController : Controller
     {
+        PhoneContext phoneContext = new PhoneContext();
         public ActionResult Index()
         {
+            IEnumerable<Phone> phones = phoneContext.Phones;
+
+            ViewBag.Phones = phones;
+
             return View();
+
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult Buy(int id)
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Id = id;
 
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public string Buy(Purchase purchase)
         {
-            ViewBag.Message = "Your contact page.";
+            purchase.Date = DateTime.Now;
+
+            phoneContext.Purchases.Add(purchase);
+
+            phoneContext.SaveChanges();
+
+            return $"Уважаемый, {purchase.FIO}, с Вами скоро свяжутся!";
+        }
+
+        [HttpGet]
+        public ActionResult Purchases()
+        {
+            IEnumerable<Purchase> purchases = phoneContext.Purchases;
+
+            ViewBag.Purchases = purchases;
 
             return View();
         }
+
+
+
+
     }
 }

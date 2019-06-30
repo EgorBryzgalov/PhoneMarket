@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Purchases</title>
+</head>
+<body>
+    <div> 
+        <h3>Заказы интернет магазина</h3>
+        <br />
+        <table>
+            <thead>
+                <tr>
+                    <td>№</td>
+                    <td>Товар</td>
+                    <td>ФИО</td>
+                    <td>Дата</td>
+                    <td>Адрес доставки</td>
+                    <td>e-mail</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{ 
+                    foreach (var purchase in ViewBag.Purchases)
+                    {
+                <tr>
+                    <td>@purchase.PurchaseId</td>
+                    <td>@purchase.PhoneId</td>
+                    <td>@purchase.FIO</td>
+                    <td>@purchase.Date</td>
+                    <td>@purchase.Address</td>
+                    <td>@purchase.Email</td>
+                </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <a href="/Home/Index">На главную</a>
+
+    </div>
+</body>
+</html>
